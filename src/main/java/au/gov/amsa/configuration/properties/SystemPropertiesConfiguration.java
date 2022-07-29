@@ -36,49 +36,46 @@ import org.slf4j.LoggerFactory;
  */
 public class SystemPropertiesConfiguration implements Configuration {
 
-	private static Logger log = LoggerFactory
-			.getLogger(SystemPropertiesConfiguration.class);
-	private String prefix;
+    private static Logger log = LoggerFactory.getLogger(SystemPropertiesConfiguration.class);
+    private String prefix;
 
-	public SystemPropertiesConfiguration() {
-		prefix = System.getProperty("au.gov.amsa.configuration.prefix");
-		if (prefix == null)
-			prefix = "configuration";
-		log.info("using prefix=" + prefix);
-	}
+    public SystemPropertiesConfiguration() {
+        prefix = System.getProperty("au.gov.amsa.configuration.prefix");
+        if (prefix == null)
+            prefix = "configuration";
+        log.info("using prefix=" + prefix);
+    }
 
-	@Override
-	public final Object getProperty(String context, String name) {
-		String key = prefix + "." + name;
-		if (context != null)
-			key = prefix + "." + context + "." + name;
-		return System.getProperty(key);
-	}
+    @Override
+    public final String getProperty(String name) {
+        String key = prefix + "." + name;
+        return System.getProperty(key);
+    }
 
-	@Override
-	public final Enumeration<String> getPropertyNames(String context) {
-		//only report those properties that start with the prefix (and dot)
-		final Map<String, String> map = new HashMap<String, String>();
-		for (Entry<Object, Object> entry : System.getProperties().entrySet())
-			if (entry.getKey().toString().startsWith(prefix + ".")) {
-				String value = (String) entry.getValue();
-				String key = (String) entry.getKey();
-				String keyPart = key.substring(prefix.length() + 1);
-				map.put(keyPart, value);
-			}
-		Enumeration<String> e = new Enumeration<String>() {
-			private final Iterator<String> it = map.keySet().iterator();
+    @Override
+    public final Enumeration<String> getPropertyNames() {
+        // only report those properties that start with the prefix (and dot)
+        final Map<String, String> map = new HashMap<String, String>();
+        for (Entry<Object, Object> entry : System.getProperties().entrySet())
+            if (entry.getKey().toString().startsWith(prefix + ".")) {
+                String value = (String) entry.getValue();
+                String key = (String) entry.getKey();
+                String keyPart = key.substring(prefix.length() + 1);
+                map.put(keyPart, value);
+            }
+        Enumeration<String> e = new Enumeration<String>() {
+            private final Iterator<String> it = map.keySet().iterator();
 
-			@Override
-			public boolean hasMoreElements() {
-				return it.hasNext();
-			}
+            @Override
+            public boolean hasMoreElements() {
+                return it.hasNext();
+            }
 
-			@Override
-			public String nextElement() {
-				return it.next();
-			}
-		};
-		return e;
-	}
+            @Override
+            public String nextElement() {
+                return it.next();
+            }
+        };
+        return e;
+    }
 }

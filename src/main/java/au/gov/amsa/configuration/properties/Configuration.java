@@ -15,9 +15,9 @@ import java.util.Optional;
  */
 public interface Configuration {
 
-    Object getProperty(String context, String name);
+    String getProperty(String name);
 
-    Enumeration<String> getPropertyNames(String context);
+    Enumeration<String> getPropertyNames();
 
     default Optional<Double> getDouble(String key) {
         return Optional.ofNullable(ConfigurationUtil.getDouble(this, key));

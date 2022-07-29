@@ -6,7 +6,7 @@ import java.util.Enumeration;
 public class ConfigurationWriter {
 
 	public final void write(Configuration configuration, PrintStream out) {
-		Enumeration<String> enumeration = configuration.getPropertyNames(null);
+		Enumeration<String> enumeration = configuration.getPropertyNames();
 		while (enumeration.hasMoreElements()) {
 			String key = enumeration.nextElement();
 			out.println(key + "="

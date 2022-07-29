@@ -17,10 +17,10 @@ public class EncryptedConfiguration implements Configuration {
     }
 
     @Override
-    public Object getProperty(String context, String name) {
+    public String getProperty(String name) {
         try {
-            Object value = configuration.getProperty(context, name);
-            if (value instanceof String && String.valueOf(value).startsWith(PREFIX_ENCRYPTED)
+            String value = configuration.getProperty(name);
+            if (String.valueOf(value).startsWith(PREFIX_ENCRYPTED)
                     && isDecryptionEnabled()) {
                 return decrypter.decrypt(String.valueOf(value).substring(PREFIX_ENCRYPTED.length()));
             } else {
@@ -51,8 +51,8 @@ public class EncryptedConfiguration implements Configuration {
     }
 
     @Override
-    public Enumeration<String> getPropertyNames(String context) {
-        return configuration.getPropertyNames(context);
+    public Enumeration<String> getPropertyNames() {
+        return configuration.getPropertyNames();
     }
 
 }

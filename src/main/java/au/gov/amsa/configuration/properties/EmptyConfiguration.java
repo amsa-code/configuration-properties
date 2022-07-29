@@ -5,12 +5,12 @@ import java.util.Enumeration;
 public class EmptyConfiguration implements Configuration {
 
 	@Override
-	public Object getProperty(String context, String name) {
+	public String getProperty(String name) {
 		return null;
 	}
 
 	@Override
-	public Enumeration<String> getPropertyNames(String context) {
+	public Enumeration<String> getPropertyNames() {
 		return new Enumeration<String>() {
 
 			@Override

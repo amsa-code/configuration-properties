@@ -37,26 +37,21 @@ public class AutoClosingInputStreamConfiguration implements Configuration {
 	}
 
 	@Override
-	public final Object getProperty(String context, String name) {
-		String property;
-		if (context == null)
-			property = name;
-		else
-			property = context + "." + name;
-		Object o = props.getProperty(property);
+	public final String getProperty(String name) {
+		String o = props.getProperty(name);
 		if (o == null)
-			log.info("property " + property + " not found");
+			log.info("property " + name + " not found");
 		else {
 			Object value = o;
 			if (name.contains("password"))
 				value = "*****";
-			log.info("property " + property + "=" + value);
+			log.info("property " + name + "=" + value);
 		}
 		return o;
 	}
 
 	@Override
-	public final Enumeration<String> getPropertyNames(String context) {
+	public final Enumeration<String> getPropertyNames() {
 
 		final Enumeration<Object> e = props.keys();
 		return new Enumeration<String>() {

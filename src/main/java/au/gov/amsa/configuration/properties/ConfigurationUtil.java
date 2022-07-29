@@ -14,7 +14,7 @@ final class ConfigurationUtil {
 	}
 
 	static Double getDouble(Configuration configuration, String key) {
-		String value = (String) configuration.getProperty(null, key);
+		String value = (String) configuration.getProperty(key);
 		if (value == null)
 			return null;
 		else
@@ -34,7 +34,7 @@ final class ConfigurationUtil {
 	}
 
 	static Long getLong(Configuration configuration, String key) {
-		String value = (String) configuration.getProperty(null, key);
+		String value = (String) configuration.getProperty(key);
 		if (value == null)
 			return null;
 		else
@@ -46,7 +46,7 @@ final class ConfigurationUtil {
 	}
 
 	static Integer getInteger(Configuration configuration, String key) {
-		String value = (String) configuration.getProperty(null, key);
+		String value = (String) configuration.getProperty(key);
 		if (value == null)
 			return null;
 		else
@@ -59,7 +59,7 @@ final class ConfigurationUtil {
 	}
 
 	static String getString(Configuration configuration, String key) {
-		return (String) configuration.getProperty(null, key);
+		return (String) configuration.getProperty(key);
 	}
 
 	static String getStringMandatory(Configuration configuration,

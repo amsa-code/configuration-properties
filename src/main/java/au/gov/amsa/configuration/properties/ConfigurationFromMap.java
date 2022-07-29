@@ -31,15 +31,12 @@ public class ConfigurationFromMap implements Configuration {
 	}
 
 	@Override
-	public Object getProperty(String context, String name) {
-		if (context==null)
+	public String getProperty(String name) {
 			return map.get(name);
-		else 
-			return map.get(context + "." + name);
 	}
 
 	@Override
-	public Enumeration<String> getPropertyNames(String context) {
+	public Enumeration<String> getPropertyNames() {
 		//make a defensive copy
 		Map<String,String> map = new HashMap<String,String>(this.map);
 		final Iterator<String> it = map.keySet().iterator();

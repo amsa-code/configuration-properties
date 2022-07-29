@@ -12,7 +12,7 @@ public class SystemPropertiesConfigurationTest {
 	public final void test() throws FileNotFoundException {
 		System.setProperty("configuration.name", "dave");
 		Configuration c = new SystemPropertiesConfiguration();
-		Assert.assertEquals("dave", c.getProperty(null, "name"));
+		Assert.assertEquals("dave", c.getProperty("name"));
 	}
 
 }

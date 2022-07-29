@@ -12,8 +12,7 @@ public class ResolvingConfiguration implements Configuration {
         this.configuration = configuration;
     }
 
-    private String resolve(String sourcestring, Configuration configuration,
-            String context) {
+    private String resolve(String sourcestring, Configuration configuration) {
         if (sourcestring == null)
             return null;
         Pattern re = Pattern.compile("\\$\\{(.+?)\\}");
@@ -21,16 +20,14 @@ public class ResolvingConfiguration implements Configuration {
         StringBuffer result = new StringBuffer();
         while (m.find()) {
             String variable = m.group(1);
-            String resolved = resolve(
-                    (String) configuration.getProperty(context, variable),
-                    configuration, context);
+            String resolved = resolve((String) configuration.getProperty(variable), configuration);
             if (resolved != null)
                 try {
                     m.appendReplacement(result, resolved);
                 } catch (RuntimeException e) {
-                    System.out
-                            .println("called appendReplacement(sb,replacement) with sb="
-                                    + result + ",replacement=" + resolved);
+                    //TODO no sysout
+                    System.out.println(
+                            "called appendReplacement(sb,replacement) with sb=" + result + ",replacement=" + resolved);
                     System.out.println(e.getMessage());
                     throw e;
                 }
@@ -40,16 +37,14 @@ public class ResolvingConfiguration implements Configuration {
     }
 
     @Override
-    public final Object getProperty(String context, String name) {
-        String result = resolve(
-                (String) configuration.getProperty(context, name),
-                configuration, context);
+    public final String getProperty(String name) {
+        String result = resolve((String) configuration.getProperty(name), configuration);
         return result;
     }
 
     @Override
-    public final Enumeration<String> getPropertyNames(String context) {
-        return configuration.getPropertyNames(context);
+    public final Enumeration<String> getPropertyNames() {
+        return configuration.getPropertyNames();
     }
 
 }
