@@ -1,6 +1,5 @@
 package au.gov.amsa.configuration.properties;
 
-
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
@@ -11,9 +10,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.davidmoten.security.PPK;
-
-import au.gov.amsa.util.security.Decrypter;
-import au.gov.amsa.util.security.PrivateKeyProvider;
 
 public final class ResolvingConfigurationTest {
 

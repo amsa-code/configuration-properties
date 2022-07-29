@@ -1,5 +1,6 @@
 package au.gov.amsa.configuration.properties;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,7 +8,8 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Loads a configuration from the file system
@@ -17,7 +19,7 @@ import org.apache.log4j.Logger;
  */
 public class FileSystemConfiguration extends AutoClosingInputStreamConfiguration {
 
-	private static Logger log = Logger.getLogger(FileSystemConfiguration.class);
+	private static Logger log = LoggerFactory.getLogger(FileSystemConfiguration.class);
 
 	public FileSystemConfiguration(String filename)
 			throws FileNotFoundException {
@@ -36,7 +38,7 @@ public class FileSystemConfiguration extends AutoClosingInputStreamConfiguration
 
 	public FileSystemConfiguration(URL url) throws FileNotFoundException,
 			URISyntaxException {
-		super(new FileInputStream(new File(url.toURI())));
+		super(new BufferedInputStream(new FileInputStream(new File(url.toURI()))));
 	}
 
 }

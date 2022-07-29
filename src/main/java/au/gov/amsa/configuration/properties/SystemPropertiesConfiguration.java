@@ -6,7 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
  */
 public class SystemPropertiesConfiguration implements Configuration {
 
-	private static Logger log = Logger
+	private static Logger log = LoggerFactory
 			.getLogger(SystemPropertiesConfiguration.class);
 	private String prefix;
 
