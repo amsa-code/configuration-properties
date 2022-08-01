@@ -4,20 +4,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.Enumeration;
+import java.util.Optional;
 import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Loads configuration from an InputStream
  * 
- * @author dxm
- * 
  */
 public class AutoClosingInputStreamConfiguration implements Configuration {
     private final Properties props;
-    private static Logger log = LoggerFactory.getLogger(AutoClosingInputStreamConfiguration.class);
 
     public AutoClosingInputStreamConfiguration(InputStream is) {
         props = new Properties();
@@ -35,21 +30,12 @@ public class AutoClosingInputStreamConfiguration implements Configuration {
     }
 
     @Override
-    public final String getProperty(String name) {
-        String o = props.getProperty(name);
-        if (o == null)
-            log.info("property " + name + " not found");
-        else {
-            Object value = o;
-            if (name.contains("password"))
-                value = "*****";
-            log.info("property " + name + "=" + value);
-        }
-        return o;
+    public final Optional<String> getString(String name) {
+        return Optional.ofNullable(props.getProperty(name));
     }
 
     @Override
-    public final Enumeration<String> getPropertyNames() {
+    public final Enumeration<String> getKeys() {
 
         final Enumeration<Object> e = props.keys();
         return new Enumeration<String>() {

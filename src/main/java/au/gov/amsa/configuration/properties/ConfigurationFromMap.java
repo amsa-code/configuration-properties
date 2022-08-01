@@ -4,6 +4,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 
 public class ConfigurationFromMap implements Configuration {
 
@@ -31,12 +32,12 @@ public class ConfigurationFromMap implements Configuration {
 	}
 
 	@Override
-	public String getProperty(String name) {
-			return map.get(name);
+	public Optional<String> getString(String name) {
+			return Optional.ofNullable(map.get(name));
 	}
 
 	@Override
-	public Enumeration<String> getPropertyNames() {
+	public Enumeration<String> getKeys() {
 		//make a defensive copy
 		Map<String,String> map = new HashMap<String,String>(this.map);
 		final Iterator<String> it = map.keySet().iterator();
