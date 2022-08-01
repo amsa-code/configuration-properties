@@ -36,7 +36,7 @@ public class ClasspathConfiguration extends AutoClosingInputStreamConfiguration 
         log.info("getting configuration from classpath: " + path + " given class=" + cls.getName());
         InputStream is = cls.getResourceAsStream(path);
         if (is == null)
-            throw new RuntimeException("resource not found: " + path);
+            throw new IllegalArgumentException("resource not found: " + path);
         else
             return is;
     }
