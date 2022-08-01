@@ -22,7 +22,7 @@ public class EncryptedConfiguration implements Configuration {
         try {
             Optional<String> value = configuration.getString(name);
             if (value.isPresent() && value.get().startsWith(PREFIX_ENCRYPTED) && isDecryptionEnabled()) {
-                return Optional.of(decrypter.decrypt(String.valueOf(value).substring(PREFIX_ENCRYPTED.length())));
+                return Optional.of(decrypter.decrypt(value.get().substring(PREFIX_ENCRYPTED.length())));
             } else {
                 return value;
             }

@@ -26,7 +26,7 @@ public class ClasspathConfiguration extends AutoClosingInputStreamConfiguration 
      * Constructor.
      * 
      * @param path resource on classpath
-     * @param cls class to obtain classloader from
+     * @param cls  class to obtain classloader from
      */
     public ClasspathConfiguration(String path, Class<?> cls) {
         super(getInputStream(path, cls));
