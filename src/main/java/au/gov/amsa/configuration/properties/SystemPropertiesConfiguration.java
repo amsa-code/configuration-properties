@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * @author dxm
  * 
  */
-public class SystemPropertiesConfiguration implements Configuration {
+public final class SystemPropertiesConfiguration implements Configuration {
 
     private static Logger log = LoggerFactory.getLogger(SystemPropertiesConfiguration.class);
     private String prefix;
@@ -47,13 +48,13 @@ public class SystemPropertiesConfiguration implements Configuration {
     }
 
     @Override
-    public final String getProperty(String name) {
+    public Optional<String> getString(String name) {
         String key = prefix + "." + name;
-        return System.getProperty(key);
+        return Optional.ofNullable(System.getProperty(key));
     }
 
     @Override
-    public final Enumeration<String> getPropertyNames() {
+    public final Enumeration<String> getKeys() {
         // only report those properties that start with the prefix (and dot)
         final Map<String, String> map = new HashMap<String, String>();
         for (Entry<Object, Object> entry : System.getProperties().entrySet())

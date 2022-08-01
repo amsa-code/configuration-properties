@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -17,42 +16,42 @@ public final class ResolvingConfigurationTest {
     public void test1() {
         String input = "name=fred";
         Configuration c = createConfiguration(input);
-        Assert.assertEquals("fred", ConfigurationUtil.getString(c, "name"));
+        assertEquals("fred", c.getStringMandatory("name"));
     }
 
     @Test
     public void test2() {
         String input = "name=${reference}\nreference=dave";
         Configuration c = createConfiguration(input);
-        Assert.assertEquals("dave", ConfigurationUtil.getString(c, "name"));
+        assertEquals("dave", c.getStringMandatory("name"));
     }
 
     @Test
     public void test3() {
         String input = "name=${reference}${reference}${label}\nreference=dave\nlabel=joy";
         Configuration c = createConfiguration(input);
-        Assert.assertEquals("davedavejoy", ConfigurationUtil.getString(c, "name"));
+        assertEquals("davedavejoy", c.getStringMandatory("name"));
     }
 
     @Test
     public void test4() {
         String input = "name=${reference}";
         Configuration c = createConfiguration(input);
-        Assert.assertEquals("${reference}", ConfigurationUtil.getString(c, "name"));
+        assertEquals("${reference}", c.getStringMandatory("name"));
     }
 
     @Test
     public void test5() {
         String input = "name=${reference}\nreference=${label}\nlabel=hello";
         Configuration c = createConfiguration(input);
-        Assert.assertEquals("hello", ConfigurationUtil.getString(c, "name"));
+        assertEquals("hello", c.getStringMandatory("name"));
     }
 
     @Test
     public void test6() {
         String input = "name=boo";
         Configuration c = createConfiguration(input);
-        Assert.assertEquals("boo", ConfigurationUtil.getString(c, "name"));
+        assertEquals("boo", c.getStringMandatory("name"));
     }
 
     @Test
@@ -62,7 +61,7 @@ public final class ResolvingConfigurationTest {
                 + "aussar.username=admin\n" + "aussar.password=encrypted:" + enc + "\n"
                 + "aussar.tns.name=bingo";
         Configuration c = createConfigurationWithDecrypter(input);
-        assertEquals("admin/alpha@bingo", ConfigurationUtil.getString(c, "aussar.url"));
+        assertEquals("admin/alpha@bingo", c.getStringMandatory("aussar.url"));
     }
 
     @Test(expected = StackOverflowError.class)
@@ -70,7 +69,7 @@ public final class ResolvingConfigurationTest {
     public void testCircularReference() {
         String input = "name=${reference}\nreference=${label}\nlabel=${reference}";
         Configuration c = createConfiguration(input);
-        Assert.assertEquals("hello", ConfigurationUtil.getString(c, "name"));
+        assertEquals("hello", c.getStringMandatory("name"));
     }
 
     private Configuration createConfiguration(String input) {

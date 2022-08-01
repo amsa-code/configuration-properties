@@ -27,8 +27,7 @@ public class PrivateKeyProviderFromConfiguration implements PrivateKeyProvider {
 
     @Override
     public InputStream getInputStream() {
-        File file = new File(
-                ConfigurationUtil.getStringMandatory(provider.get(), ENCRYPTION_PRIVATE_KEY_FILE));
+        File file = new File(provider.get().getStringMandatory(ENCRYPTION_PRIVATE_KEY_FILE));
         try {
             return new BufferedInputStream(new FileInputStream(file));
         } catch (FileNotFoundException e) {
