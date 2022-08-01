@@ -1,28 +1,29 @@
 package au.gov.amsa.configuration.properties;
 
 import java.util.Enumeration;
+import java.util.Optional;
 
 public class EmptyConfiguration implements Configuration {
 
-	@Override
-	public String getProperty(String name) {
-		return null;
-	}
+    @Override
+    public Optional<String> getString(String name) {
+        return Optional.empty();
+    }
 
-	@Override
-	public Enumeration<String> getPropertyNames() {
-		return new Enumeration<String>() {
+    @Override
+    public Enumeration<String> getKeys() {
+        return new Enumeration<String>() {
 
-			@Override
-			public boolean hasMoreElements() {
-				return false;
-			}
+            @Override
+            public boolean hasMoreElements() {
+                return false;
+            }
 
-			@Override
-			public String nextElement() {
-				return null;
-			}
-		};
-	}
+            @Override
+            public String nextElement() {
+                return null;
+            }
+        };
+    }
 
 }

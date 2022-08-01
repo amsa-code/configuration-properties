@@ -1,6 +1,7 @@
 package au.gov.amsa.configuration.properties;
 
 import java.util.Enumeration;
+import java.util.Optional;
 
 public class EncryptedConfiguration implements Configuration {
 
@@ -17,17 +18,16 @@ public class EncryptedConfiguration implements Configuration {
     }
 
     @Override
-    public String getProperty(String name) {
+    public Optional<String> getString(String name) {
         try {
-            String value = configuration.getProperty(name);
-            if (String.valueOf(value).startsWith(PREFIX_ENCRYPTED)
-                    && isDecryptionEnabled()) {
-                return decrypter.decrypt(String.valueOf(value).substring(PREFIX_ENCRYPTED.length()));
+            Optional<String> value = configuration.getString(name);
+            if (value.isPresent() && value.get().startsWith(PREFIX_ENCRYPTED) && isDecryptionEnabled()) {
+                return Optional.of(decrypter.decrypt(String.valueOf(value).substring(PREFIX_ENCRYPTED.length())));
             } else {
                 return value;
             }
         } catch (RuntimeException e) {
-            throw new RuntimeException("could not get property for name=" + name, e);
+            throw new RuntimeException("could not decrypt property for name=" + name, e);
         }
     }
 
@@ -51,8 +51,8 @@ public class EncryptedConfiguration implements Configuration {
     }
 
     @Override
-    public Enumeration<String> getPropertyNames() {
-        return configuration.getPropertyNames();
+    public Enumeration<String> getKeys() {
+        return configuration.getKeys();
     }
 
 }

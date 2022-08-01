@@ -1,6 +1,7 @@
 package au.gov.amsa.configuration.properties;
 
 import java.util.Enumeration;
+import java.util.Optional;
 
 /**
  * Joins two configurations to provide one effective configuration file. The
@@ -26,17 +27,19 @@ public class ConfigurationUnion implements Configuration {
     }
 
     @Override
-    public final String getProperty(String name) {
-        if (c1.getProperty(name) == null)
-            return c2.getProperty(name);
-        else
-            return c1.getProperty(name);
+    public final Optional<String> getString(String key) {
+        Optional<String> a = c1.getString(key);
+        if (a.isPresent()) {
+            return a;
+        } else {
+            return c2.getString(key);
+        }
     }
 
     @Override
-    public final Enumeration<String> getPropertyNames() {
-        final Enumeration<String> e1 = c1.getPropertyNames();
-        final Enumeration<String> e2 = c2.getPropertyNames();
+    public final Enumeration<String> getKeys() {
+        final Enumeration<String> e1 = c1.getKeys();
+        final Enumeration<String> e2 = c2.getKeys();
         return new Enumeration<String>() {
 
             @Override
