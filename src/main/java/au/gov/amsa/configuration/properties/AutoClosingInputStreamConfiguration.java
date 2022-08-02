@@ -36,21 +36,27 @@ public class AutoClosingInputStreamConfiguration implements Configuration {
 
     @Override
     public final Enumeration<String> getKeys() {
-
         final Enumeration<Object> e = props.keys();
-        return new Enumeration<String>() {
+        return new StringEnumeration(e);
+    }
+    
+    private static final class StringEnumeration implements Enumeration<String> {
 
-            @Override
-            public boolean hasMoreElements() {
-                return e.hasMoreElements();
-            }
+        private final Enumeration<Object> en;
 
-            @Override
-            public String nextElement() {
-                return (String) e.nextElement();
-            }
-        };
+        StringEnumeration(Enumeration<Object> en) {
+            this.en = en;
+        }
+        
+        @Override
+        public boolean hasMoreElements() {
+            return en.hasMoreElements();
+        }
 
+        @Override
+        public String nextElement() {
+            return (String) en.nextElement();
+        }
     }
 
 }
