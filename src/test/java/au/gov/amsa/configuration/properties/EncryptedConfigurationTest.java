@@ -1,6 +1,7 @@
 package au.gov.amsa.configuration.properties;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
@@ -31,6 +32,14 @@ public class EncryptedConfigurationTest {
         Configuration base = ConfigurationFromMap.add("hello", "encrypted:there").build();
         Configuration c = createConfigurationWithDecrypter(base);
         c.getString("hello");
+    }
+
+    @Test
+    public void testNotEncrypted() {
+        Configuration base = ConfigurationFromMap.add("hello", "there").build();
+        Configuration c = createConfigurationWithDecrypter(base);
+        assertEquals("there", c.getStringMandatory("hello"));
+        assertFalse(c.getString("not.present").isPresent());
     }
 
     @Test
