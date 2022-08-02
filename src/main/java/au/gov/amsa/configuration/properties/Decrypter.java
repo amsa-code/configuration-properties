@@ -2,8 +2,7 @@ package au.gov.amsa.configuration.properties;
 
 import com.github.davidmoten.security.PPK;
 
-//@Singleton
-public class Decrypter {
+public final class Decrypter {
 
     private final PrivateKeyProvider privateKey;
 

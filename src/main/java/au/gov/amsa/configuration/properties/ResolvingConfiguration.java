@@ -13,6 +13,10 @@ public class ResolvingConfiguration implements Configuration {
         this.configuration = configuration;
     }
 
+    // TODO check for circular references so don't get StackOverflowError
+    // we don't want the scenario where one configuration change on a single
+    // webapp breaks the whole container. Never happened but probably worth
+    // protecting against.
     private Optional<String> resolve(Optional<String> sourcestring, Configuration configuration) {
         if (!sourcestring.isPresent()) {
             return sourcestring;

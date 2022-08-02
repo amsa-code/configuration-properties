@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author dxm
  * 
  */
-public class ConfigurationUnion implements Configuration {
+public final class ConfigurationUnion implements Configuration {
 
     private final Configuration c1;
     private final Configuration c2;

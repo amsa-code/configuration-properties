@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
-public class PrivateKeyProviderFromConfiguration implements PrivateKeyProvider {
+public final class PrivateKeyProviderFromConfiguration implements PrivateKeyProvider {
 
     public static final String ENCRYPTION_PRIVATE_KEY_FILE = "encryption.private.key.file";
     private final Supplier<Configuration> provider;

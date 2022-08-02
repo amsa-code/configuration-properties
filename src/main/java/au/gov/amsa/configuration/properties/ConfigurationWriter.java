@@ -4,7 +4,7 @@ import java.io.PrintStream;
 import java.util.Enumeration;
 import java.util.Optional;
 
-public class ConfigurationWriter {
+public final class ConfigurationWriter {
 
     public final void write(Configuration configuration, PrintStream out) {
         Enumeration<String> enumeration = configuration.getKeys();

@@ -1,9 +1,10 @@
 package au.gov.amsa.configuration.properties;
 
 import java.util.Enumeration;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class EmptyConfiguration implements Configuration {
+public final class EmptyConfiguration implements Configuration {
 
     @Override
     public Optional<String> getString(String name) {
@@ -21,7 +22,7 @@ public class EmptyConfiguration implements Configuration {
 
             @Override
             public String nextElement() {
-                return null;
+                throw new NoSuchElementException();
             }
         };
     }

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  * Gets configuration from a resource on the classpath
  * 
  */
-public class ClasspathConfiguration extends AutoClosingInputStreamConfiguration {
+public final class ClasspathConfiguration extends AutoClosingInputStreamConfiguration {
 
     private static Logger log = LoggerFactory.getLogger(ClasspathConfiguration.class);
 

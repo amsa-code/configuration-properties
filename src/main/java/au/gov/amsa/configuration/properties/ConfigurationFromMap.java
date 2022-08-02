@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 
-public class ConfigurationFromMap implements Configuration {
+public final class ConfigurationFromMap implements Configuration {
 
     private final Map<String, String> map;
 

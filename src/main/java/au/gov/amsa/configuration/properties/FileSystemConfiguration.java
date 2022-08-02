@@ -15,10 +15,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Loads a configuration from the file system
  * 
- * @author dxm
- * 
  */
-public class FileSystemConfiguration extends AutoClosingInputStreamConfiguration {
+public final class FileSystemConfiguration extends AutoClosingInputStreamConfiguration {
 
     private static Logger log = LoggerFactory.getLogger(FileSystemConfiguration.class);
 
