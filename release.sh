@@ -18,3 +18,9 @@ mvn deploy
 mvn versions:set -DnextSnapshot=true -DgenerateBackupPoms=false
 git commit -am "set versions to next snapshot"
 git push origin master
+echo ============================================================
+echo The release has been built, tagged and pushed to the remote
+echo repository at version $VERSION .
+echo 
+echo Now update the Releases page 
+echo   https://github.com/amsa-code/configuration-properties/releases
