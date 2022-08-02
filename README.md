@@ -34,7 +34,7 @@ You do of course need a relevant entry in the `servers` section of your `.m2/set
   </server>
 </servers>
 ```
-After running the script please update [Releases](../../releases).
+After running the script please update [Releases](../../releases) (convert the new tag into a release).
 
 
  
