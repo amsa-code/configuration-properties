@@ -54,7 +54,7 @@ public final class SystemPropertiesConfiguration implements Configuration {
     }
 
     @Override
-    public final Enumeration<String> getKeys() {
+    public Enumeration<String> getKeys() {
         // only report those properties that start with the prefix (and dot)
         final Map<String, String> map = new HashMap<String, String>();
         for (Entry<Object, Object> entry : System.getProperties().entrySet())
