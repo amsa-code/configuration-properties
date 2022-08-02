@@ -1,7 +1,10 @@
 package au.gov.amsa.configuration.properties;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -14,6 +17,11 @@ public class ConfigurationTest {
             .add("thing.integer.bad", "abc") //
             .add("thing.double", "123456.7890123") //
             .add("thing.double.bad", "abc") //
+            .add("thing.boolean", "false") //
+            .add("thing.boolean.uppercase", "FALSE") //
+            .add("thing.boolean.bad", "abc") //
+            .add("thing.list", "a,b,c") //
+            .add("thing.list.empty", "") //
             .build();
 
     @Test
@@ -109,6 +117,27 @@ public class ConfigurationTest {
     @Test(expected = NumberFormatException.class)
     public void testFloatMandatoryWrongFormat() {
         c.getFloat("thing.double.bad");
+    }
+    
+    @Test
+    public void testBoolean() {
+        assertFalse(c.getBooleanMandatory("thing.boolean"));
+    }
+    
+    @Test
+    public void testBooleanUppercase() {
+        assertFalse(c.getBooleanMandatory("thing.boolean.uppercase"));
+    }
+    
+    @Test
+    public void testStringList() {
+        assertEquals(Arrays.asList("a","b","c"), c.getStringList("thing.list", ","));
+    }
+    
+    @Test
+    public void testStringListEmpty() {
+        System.out.println(c.getStringList("thing.list.empty", ",").size());
+        assertTrue(c.getStringList("thing.list.empty", ",").isEmpty());
     }
 
 }

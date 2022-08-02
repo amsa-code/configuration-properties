@@ -93,14 +93,19 @@ public interface Configuration {
     }
 
     default List<String> getStringListMandatory(String key, String delimiter) {
-        return Arrays.asList(getStringMandatory(key).split(delimiter));
+        String s = getStringMandatory(key);
+        if (s.equals("")) {
+            return Collections.emptyList();
+        } else {
+            return Arrays.asList(getStringMandatory(key).split(delimiter));
+        }
     }
 
     default List<String> getStringListMandatory(String key, String delimiter, int minSize) {
         if (minSize <= 0) {
             throw new IllegalArgumentException("minSize must be > 0");
         }
-        List<String> list = Arrays.asList(getStringMandatory(key).split(delimiter));
+        List<String> list = getStringListMandatory(key, delimiter);
         if (list.size() < minSize) {
             throw new IllegalArgumentException("list " + key + " must have at least " + minSize + " elements");
         }
@@ -108,7 +113,12 @@ public interface Configuration {
     }
 
     default List<String> getStringList(String key, String delimiter) {
-        return getString(key).map(x -> Arrays.asList(x.split(delimiter))).orElse(Collections.emptyList());
+        Optional<String> s = getString(key);
+        if (s.isPresent() && s.get().equals("")) {
+            return Collections.emptyList();
+        } else {
+            return s.map(x -> Arrays.asList(x.split(delimiter))).orElse(Collections.emptyList());
+        }
     }
 
 }
