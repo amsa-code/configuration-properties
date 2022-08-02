@@ -64,7 +64,11 @@ public final class SystemPropertiesConfiguration implements Configuration {
                 String keyPart = key.substring(prefix.length() + 1);
                 map.put(keyPart, value);
             }
-        Enumeration<String> e = new Enumeration<String>() {
+        return keys(map);
+    }
+
+    private static Enumeration<String> keys(final Map<String, String> map) {
+        return new Enumeration<String>() {
             private final Iterator<String> it = map.keySet().iterator();
 
             @Override
@@ -77,6 +81,5 @@ public final class SystemPropertiesConfiguration implements Configuration {
                 return it.next();
             }
         };
-        return e;
     }
 }

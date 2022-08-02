@@ -6,6 +6,19 @@ import java.util.Optional;
 
 public final class EmptyConfiguration implements Configuration {
 
+    private static final Enumeration<String> EMPTY = new Enumeration<String>() {
+
+        @Override
+        public boolean hasMoreElements() {
+            return false;
+        }
+
+        @Override
+        public String nextElement() {
+            throw new NoSuchElementException();
+        }
+    };
+
     @Override
     public Optional<String> getString(String name) {
         return Optional.empty();
@@ -13,18 +26,7 @@ public final class EmptyConfiguration implements Configuration {
 
     @Override
     public Enumeration<String> getKeys() {
-        return new Enumeration<String>() {
-
-            @Override
-            public boolean hasMoreElements() {
-                return false;
-            }
-
-            @Override
-            public String nextElement() {
-                throw new NoSuchElementException();
-            }
-        };
+        return EMPTY;
     }
 
 }

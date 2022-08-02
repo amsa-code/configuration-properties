@@ -45,6 +45,10 @@ public final class ConfigurationFromMap implements Configuration {
         // make a defensive copy
         Map<String, String> map = new HashMap<String, String>(this.map);
         final Iterator<String> it = map.keySet().iterator();
+        return enumeration(it);
+    }
+
+    private static Enumeration<String> enumeration(final Iterator<String> it) {
         return new Enumeration<String>() {
 
             @Override

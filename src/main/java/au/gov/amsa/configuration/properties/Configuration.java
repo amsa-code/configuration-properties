@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TimeZone;
@@ -78,7 +79,7 @@ public interface Configuration {
     }
 
     default boolean getBooleanMandatory(String key) {
-        return checkPresent(getString(key).map(x -> Boolean.valueOf(x.trim().toLowerCase())), key);
+        return checkPresent(getString(key).map(x -> Boolean.valueOf(x.trim().toLowerCase(Locale.ENGLISH))), key);
     }
 
     default Date getDateMandatory(String key) {

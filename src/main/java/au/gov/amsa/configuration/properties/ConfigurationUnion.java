@@ -40,6 +40,10 @@ public final class ConfigurationUnion implements Configuration {
     public final Enumeration<String> getKeys() {
         final Enumeration<String> e1 = c1.getKeys();
         final Enumeration<String> e2 = c2.getKeys();
+        return enumeration(e1, e2);
+    }
+
+    private static Enumeration<String> enumeration(final Enumeration<String> e1, final Enumeration<String> e2) {
         return new Enumeration<String>() {
 
             @Override
