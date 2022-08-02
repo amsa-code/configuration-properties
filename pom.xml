@@ -179,5 +179,10 @@
             </plugin>
         </plugins>
     </build>
-
+    <distributionManagement>
+        <repository>
+            <id>amsa-maven-private</id>
+            <url>https://maven.aussar.org/repo/</url>
+        </repository>
+    </distributionManagement>
 </project>
