@@ -30,6 +30,7 @@ You do of course need a relevant entry in the `servers` section of your `.m2/set
   </server>
 </servers>
 ```
+After running the script please update [Releases](https://github.com/amsa-code/configuration-properties/releases).
 
 
  
