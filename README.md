@@ -14,4 +14,21 @@ Note that to complete the build there must be 100% code coverage and spotbugs an
 
 ## How to deploy to amsa-maven-private
 
+Run 
+```bash
+./release.sh <VERSION>
+```
+You do of course need a relevant entry in the `servers` section of your `.m2/settings.xml`. Something like:
+
+```xml
+<servers>
+...
+  <server>
+    <id>amsa-maven-private</id>
+    <username>amsa</username>
+    <password>ENCRYPTED_PASSWORD</password>
+  </server>
+```
+
+
  
