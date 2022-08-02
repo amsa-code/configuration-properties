@@ -2,6 +2,7 @@ package au.gov.amsa.configuration.properties;
 
 import static au.gov.amsa.configuration.properties.Util.checkPresent;
 
+import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -119,6 +120,17 @@ public interface Configuration {
             return Collections.emptyList();
         } else {
             return s.map(x -> Arrays.asList(x.split(delimiter))).orElse(Collections.emptyList());
+        }
+    }
+
+    default void write(PrintStream out) {
+        Enumeration<String> enumeration = getKeys();
+        while (enumeration.hasMoreElements()) {
+            String key = enumeration.nextElement();
+            Optional<String> value = getString(key);
+            if (value.isPresent()) {
+                out.println(key + "=" + value.get());
+            }
         }
     }
 

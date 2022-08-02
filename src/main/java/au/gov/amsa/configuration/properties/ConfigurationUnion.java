@@ -27,7 +27,7 @@ public final class ConfigurationUnion implements Configuration {
     }
 
     @Override
-    public final Optional<String> getString(String key) {
+    public Optional<String> getString(String key) {
         Optional<String> a = c1.getString(key);
         if (a.isPresent()) {
             return a;
@@ -37,7 +37,7 @@ public final class ConfigurationUnion implements Configuration {
     }
 
     @Override
-    public final Enumeration<String> getKeys() {
+    public Enumeration<String> getKeys() {
         final Enumeration<String> e1 = c1.getKeys();
         final Enumeration<String> e2 = c2.getKeys();
         return enumeration(e1, e2);
