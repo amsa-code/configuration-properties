@@ -54,6 +54,13 @@ public final class ResolvingConfigurationTest {
         assertEquals("boo", c.getStringMandatory("name"));
     }
 
+    @Test
+    public void testBlank() {
+        String input = "name=";
+        Configuration c = createConfiguration(input);
+        assertEquals(Optional.empty(), c.getString("name"));
+    }
+
     @Test(expected = StackOverflowError.class)
     @Ignore
     public void testCircularReference() {

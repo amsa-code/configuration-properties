@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ResolvingConfiguration implements Configuration {
+public final class ResolvingConfiguration implements Configuration {
 
     private final Configuration configuration;
 
@@ -47,12 +47,12 @@ public class ResolvingConfiguration implements Configuration {
     }
 
     @Override
-    public final Optional<String> getString(String name) {
+    public Optional<String> getString(String name) {
         return resolve(configuration.getString(name), configuration);
     }
 
     @Override
-    public final Enumeration<String> getKeys() {
+    public Enumeration<String> getKeys() {
         return configuration.getKeys();
     }
 
