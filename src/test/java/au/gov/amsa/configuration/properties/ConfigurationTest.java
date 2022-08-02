@@ -63,12 +63,33 @@ public class ConfigurationTest {
 
     @Test(expected = ValueNotFoundException.class)
     public void testDoubleMandatoryNotPresent() {
-        c.getIntegerMandatory("not.present");
+        c.getDoubleMandatory("not.present");
     }
 
     @Test(expected = NumberFormatException.class)
     public void testDoubleMandatoryWrongFormat() {
-        c.getInteger("thing.double.bad");
+        c.getDouble("thing.double.bad");
     }
+    
+    @Test
+    public void testLong() {
+        assertEquals(Optional.of(123L), c.getLong("thing.integer"));
+    }
+
+    @Test
+    public void testLongMandatory() {
+        assertEquals(123L, c.getLongMandatory("thing.integer"));
+    }
+
+    @Test(expected = ValueNotFoundException.class)
+    public void testLongMandatoryNotPresent() {
+        c.getLongMandatory("not.present");
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void testLongMandatoryWrongFormat() {
+        c.getLong("thing.integer.bad");
+    }
+
 
 }
