@@ -136,8 +136,17 @@ public class ConfigurationTest {
     
     @Test
     public void testStringListEmpty() {
-        System.out.println(c.getStringList("thing.list.empty", ",").size());
         assertTrue(c.getStringList("thing.list.empty", ",").isEmpty());
+    }
+    
+    @Test
+    public void testStringListNotPresent() {
+        assertTrue(c.getStringList("thing.list.not.present", ",").isEmpty());
+    }
+    
+    @Test
+    public void testStringListMandatory() {
+        assertEquals(Arrays.asList("a","b","c"), c.getStringListMandatory("thing.list", ","));
     }
 
 }
