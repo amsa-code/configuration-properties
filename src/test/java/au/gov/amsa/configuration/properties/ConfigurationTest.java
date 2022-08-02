@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -22,6 +23,8 @@ public class ConfigurationTest {
             .add("thing.boolean.bad", "abc") //
             .add("thing.list", "a,b,c") //
             .add("thing.list.empty", "") //
+            .add("thing.date", "2022-03-01 15:45:02") //
+            .add("thing.date.bad", "abc") //
             .build();
 
     @Test
@@ -78,7 +81,7 @@ public class ConfigurationTest {
     public void testDoubleMandatoryWrongFormat() {
         c.getDouble("thing.double.bad");
     }
-    
+
     @Test
     public void testLong() {
         assertEquals(Optional.of(123L), c.getLong("thing.integer"));
@@ -98,7 +101,7 @@ public class ConfigurationTest {
     public void testLongMandatoryWrongFormat() {
         c.getLong("thing.integer.bad");
     }
-    
+
     @Test
     public void testFloat() {
         assertEquals(123456.789f, c.getFloat("thing.double").get(), 0.001);
@@ -118,35 +121,66 @@ public class ConfigurationTest {
     public void testFloatMandatoryWrongFormat() {
         c.getFloat("thing.double.bad");
     }
-    
+
     @Test
     public void testBoolean() {
         assertFalse(c.getBooleanMandatory("thing.boolean"));
     }
-    
+
     @Test
     public void testBooleanUppercase() {
         assertFalse(c.getBooleanMandatory("thing.boolean.uppercase"));
     }
-    
+
     @Test
     public void testStringList() {
-        assertEquals(Arrays.asList("a","b","c"), c.getStringList("thing.list", ","));
+        assertEquals(Arrays.asList("a", "b", "c"), c.getStringList("thing.list", ","));
     }
-    
+
     @Test
     public void testStringListEmpty() {
         assertTrue(c.getStringList("thing.list.empty", ",").isEmpty());
     }
-    
+
     @Test
     public void testStringListNotPresent() {
         assertTrue(c.getStringList("thing.list.not.present", ",").isEmpty());
     }
-    
+
     @Test
     public void testStringListMandatory() {
-        assertEquals(Arrays.asList("a","b","c"), c.getStringListMandatory("thing.list", ","));
+        assertEquals(Arrays.asList("a", "b", "c"), c.getStringListMandatory("thing.list", ","));
+    }
+
+    @Test
+    public void testStringListMandatoryEmpty() {
+        assertTrue(c.getStringListMandatory("thing.list.empty", ",").isEmpty());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testStringListMandatoryFailsMinSize() {
+        c.getStringListMandatory("thing.list.empty", ",", 2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testStringListMandatoryFailsMinSizeInvalid() {
+        c.getStringListMandatory("thing.list.empty", ",", -1);
+    }
+
+    @Test
+    public void testStringListMandatoryPassesMinSize() {
+        c.getStringListMandatory("thing.list", ",", 1);
+    }
+
+    @Test
+    public void testDate() {
+        Date d = c.getDateMandatory("thing.date");
+        assertEquals(1646149502000L, d.getTime());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDateBad() {
+        c.getDateMandatory("thing.date.bad");
     }
 
 }

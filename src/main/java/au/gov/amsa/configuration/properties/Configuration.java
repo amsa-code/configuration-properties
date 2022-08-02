@@ -88,7 +88,7 @@ public interface Configuration {
         try {
             return df.parse(s);
         } catch (ParseException e) {
-            throw new RuntimeException("date could not be parsed from configuration item " + key + "=" + s);
+            throw new IllegalArgumentException("date could not be parsed from configuration item " + key + "=" + s);
         }
     }
 
