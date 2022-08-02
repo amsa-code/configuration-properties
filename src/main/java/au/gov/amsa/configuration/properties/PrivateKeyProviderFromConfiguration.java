@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.util.function.Supplier;
 
 public final class PrivateKeyProviderFromConfiguration implements PrivateKeyProvider {
@@ -31,7 +32,7 @@ public final class PrivateKeyProviderFromConfiguration implements PrivateKeyProv
         try {
             return new BufferedInputStream(new FileInputStream(file));
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 

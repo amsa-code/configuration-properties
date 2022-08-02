@@ -1,8 +1,12 @@
 package au.gov.amsa.configuration.properties;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 
 import org.junit.Test;
 
@@ -20,6 +24,23 @@ public class EncryptedConfigurationTest {
         assertEquals("admin/alpha@bingo", c.getStringMandatory("aussar.url"));
         assertEquals(Sets.newHashSet("aussar.username", "aussar.url", "aussar.tns.name", "aussar.password"),
                 c.getKeyset());
+    }
+
+    @Test
+    public void testPrivateKeyFromConfiguration() throws IOException {
+        Configuration c = ConfigurationFromMap.add(PrivateKeyProviderFromConfiguration.ENCRYPTION_PRIVATE_KEY_FILE,
+                "src/test/resources/test-private.der").build();
+        try (InputStream in = new PrivateKeyProviderFromConfiguration(c).getInputStream()) {
+            assertNotNull(in);
+        }
+    }
+
+    @Test(expected = UncheckedIOException.class)
+    public void testPrivateKeyFromConfigurationNotPresent() throws IOException {
+        Configuration c = ConfigurationFromMap
+                .add(PrivateKeyProviderFromConfiguration.ENCRYPTION_PRIVATE_KEY_FILE, "not.present") //
+                .build();
+        new PrivateKeyProviderFromConfiguration(c).getInputStream();
     }
 
     private static Configuration createConfigurationWithDecrypter(String input) {
