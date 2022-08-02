@@ -9,8 +9,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TimeZone;
 
 public interface Configuration {
@@ -30,6 +32,15 @@ public interface Configuration {
      */
     Enumeration<String> getKeys();
 
+    default Set<String> getKeyset() {
+        Enumeration<String> en = getKeys();
+        Set<String> set = new HashSet<>();
+        while (en.hasMoreElements()) {
+            set.add(en.nextElement());
+        }
+        return set;
+    }
+
     default String getStringMandatory(String key) {
         return checkPresent(getString(key), key);
     }
@@ -41,11 +52,11 @@ public interface Configuration {
     default double getDoubleMandatory(String key) {
         return checkPresent(getDouble(key), key);
     }
-    
+
     default Optional<Float> getFloat(String key) {
         return getString(key).map(x -> Float.parseFloat(x));
     }
-    
+
     default float getFloatMandatory(String key) {
         return checkPresent(getFloat(key), key);
     }

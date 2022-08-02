@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
+import com.github.davidmoten.guavamini.Sets;
+
 public class ConfigurationUnionTest {
     
     @Test
@@ -15,6 +17,7 @@ public class ConfigurationUnionTest {
         assertEquals("cup", c.getStringMandatory("thing"));
         assertEquals("table", c.getStringMandatory("stuff"));
         assertFalse(c.getString("not.present").isPresent());
+        assertEquals(Sets.newHashSet("thing", "stuff"), c.getKeyset());
     }
-
+    
 }
