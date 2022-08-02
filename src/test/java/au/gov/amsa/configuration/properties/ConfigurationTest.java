@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
@@ -188,4 +191,15 @@ public class ConfigurationTest {
         ValueNotFoundException e = new ValueNotFoundException("abc");
         assertEquals("abc", e.key());
     }
+
+    @Test
+    public void testWrite() {
+        Configuration c = ConfigurationFromMap.add("hello", "there").build();
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        try (PrintStream out = new PrintStream(bytes)) {
+            c.write(out);
+        }
+        assertEquals("hello=there\n", new String(bytes.toByteArray(), StandardCharsets.UTF_8));
+    }
+
 }
