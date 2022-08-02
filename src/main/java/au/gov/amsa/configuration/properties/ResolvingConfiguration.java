@@ -28,17 +28,22 @@ public class ResolvingConfiguration implements Configuration {
             String variable = m.group(1);
             Optional<String> resolved = resolve(configuration.getString(variable), configuration);
             if (resolved.isPresent())
-                try {
-                    m.appendReplacement(result, resolved.get());
-                } catch (RuntimeException e) {
-                    throw e;
-                }
+                appendReplacement(m, result, resolved);
         }
         m.appendTail(result);
         if (result.length() == 0) {
             return Optional.empty();
         }
         return Optional.of(result.toString());
+    }
+
+    // VisibleForTesting
+    static void appendReplacement(Matcher m, StringBuffer result, Optional<String> resolved) {
+        try {
+            m.appendReplacement(result, resolved.get());
+        } catch (RuntimeException e) {
+            throw e;
+        }
     }
 
     @Override

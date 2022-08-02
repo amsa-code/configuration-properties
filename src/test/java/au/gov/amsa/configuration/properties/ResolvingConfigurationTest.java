@@ -3,6 +3,9 @@ package au.gov.amsa.configuration.properties;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -62,6 +65,13 @@ public final class ResolvingConfigurationTest {
     private Configuration createConfiguration(String input) {
         return new ResolvingConfiguration(
                 new AutoClosingInputStreamConfiguration(new ByteArrayInputStream(input.getBytes())));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAppendReplacementThrows() {
+        Matcher m = Pattern.compile("cde").matcher("abc");
+        m.find();
+        ResolvingConfiguration.appendReplacement(m, new StringBuffer(), Optional.of("blah"));
     }
 
 }
