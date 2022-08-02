@@ -41,9 +41,7 @@ public final class SystemPropertiesConfiguration implements Configuration {
     private String prefix;
 
     public SystemPropertiesConfiguration() {
-        prefix = System.getProperty("au.gov.amsa.configuration.prefix");
-        if (prefix == null)
-            prefix = "configuration";
+        prefix = System.getProperty("au.gov.amsa.configuration.prefix", "configuration");
         log.info("using prefix=" + prefix);
     }
 
