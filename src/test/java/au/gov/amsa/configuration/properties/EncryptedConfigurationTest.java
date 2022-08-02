@@ -26,6 +26,13 @@ public class EncryptedConfigurationTest {
                 c.getKeyset());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testNotEncryptedBadFormat() {
+        Configuration base = ConfigurationFromMap.add("hello", "encrypted:there").build();
+        Configuration c = createConfigurationWithDecrypter(base);
+        c.getString("hello");
+    }
+
     @Test
     public void testPrivateKeyFromConfiguration() throws IOException {
         Configuration c = ConfigurationFromMap.add(PrivateKeyProviderFromConfiguration.ENCRYPTION_PRIVATE_KEY_FILE,
@@ -45,6 +52,10 @@ public class EncryptedConfigurationTest {
 
     private static Configuration createConfigurationWithDecrypter(String input) {
         Configuration config = new AutoClosingInputStreamConfiguration(new ByteArrayInputStream(input.getBytes()));
+        return createConfigurationWithDecrypter(config);
+    }
+
+    private static ResolvingConfiguration createConfigurationWithDecrypter(Configuration config) {
         return new ResolvingConfiguration(new EncryptedConfiguration(config,
                 new Decrypter(() -> ResolvingConfigurationTest.class.getResourceAsStream("/test-private.der"))));
     }

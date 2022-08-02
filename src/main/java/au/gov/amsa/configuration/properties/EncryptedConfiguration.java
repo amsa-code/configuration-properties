@@ -24,7 +24,7 @@ public final class EncryptedConfiguration implements Configuration {
                 return value;
             }
         } catch (RuntimeException e) {
-            throw new RuntimeException("could not decrypt property for name=" + name, e);
+            throw new IllegalArgumentException("could not decrypt property for name=" + name, e);
         }
     }
 

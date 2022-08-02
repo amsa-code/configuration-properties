@@ -1,13 +1,10 @@
 package au.gov.amsa.configuration.properties;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,10 +32,6 @@ public final class FileSystemConfiguration extends AutoClosingInputStreamConfigu
         } catch (FileNotFoundException e) {
             throw new UncheckedIOException(e);
         }
-    }
-
-    public FileSystemConfiguration(URL url) throws FileNotFoundException, URISyntaxException {
-        super(new BufferedInputStream(new FileInputStream(new File(url.toURI()))));
     }
 
 }
