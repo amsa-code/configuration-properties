@@ -90,6 +90,25 @@ public class ConfigurationTest {
     public void testLongMandatoryWrongFormat() {
         c.getLong("thing.integer.bad");
     }
+    
+    @Test
+    public void testFloat() {
+        assertEquals(123456.789f, c.getFloat("thing.double").get(), 0.001);
+    }
 
+    @Test
+    public void testFloatMandatory() {
+        assertEquals(123456.789, c.getFloatMandatory("thing.double"), 0.001);
+    }
+
+    @Test(expected = ValueNotFoundException.class)
+    public void testFloatMandatoryNotPresent() {
+        c.getFloatMandatory("not.present");
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void testFloatMandatoryWrongFormat() {
+        c.getFloat("thing.double.bad");
+    }
 
 }
