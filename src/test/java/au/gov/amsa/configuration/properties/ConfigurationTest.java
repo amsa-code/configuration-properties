@@ -183,4 +183,9 @@ public class ConfigurationTest {
         c.getDateMandatory("thing.date.bad");
     }
 
+    @Test
+    public void testKey() {
+        ValueNotFoundException e = new ValueNotFoundException("abc");
+        assertEquals("abc", e.key());
+    }
 }
