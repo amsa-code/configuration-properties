@@ -7,7 +7,7 @@ The original code has been trimmed to the core classes in use in *amsa-code* and
 
 ## Features
 * compatible with Java 8, 11, 17
-* dependabot enabled with automerge for passing dependabot PRs (see [ci.yml](.github/workflows.ci.yml))
+* dependabot enabled with automerge for passing dependabot PRs (see [ci.yml](tree/master/.github/workflows.ci.yml))
 
 ## How to build
 ```bash
@@ -34,7 +34,7 @@ You do of course need a relevant entry in the `servers` section of your `.m2/set
   </server>
 </servers>
 ```
-After running the script please update [Releases](https://github.com/amsa-code/configuration-properties/releases).
+After running the script please update [Releases](releases).
 
 
  
