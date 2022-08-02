@@ -13,8 +13,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <line.coverage>0.9</line.coverage>
-        <branch.coverage>0.9</branch.coverage>
+        <line.coverage>1.0</line.coverage>
+        <branch.coverage>1.0</branch.coverage>
     </properties>
     <dependencies>
 
