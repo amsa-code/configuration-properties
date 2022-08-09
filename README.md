@@ -6,6 +6,9 @@ Java code migrated from *amsa-code/amsa-java/parent/amsa-util* for reading confi
 The original code has been trimmed to the core classes in use in *amsa-code* and the API simplified significantly. This library is not a drop-in replacement for *amsa-util* configuration classes, it has breaking changes and also includes a couple of minor bug fixes (like using UTC timezone instead of the platform default in parsing of datetimes in configuration).
 
 ## Features
+* supports encrypted fields
+* supports resolving configuration (resolves nested references to other fields)
+* loads configuration from file system, classpath, system properties, java.util.Map
 * compatible with Java 8, 11, 17
 * dependabot enabled with automerge for passing dependabot PRs (see [ci.yml](.github/workflows/ci.yml))
 
