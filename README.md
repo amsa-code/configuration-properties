@@ -14,6 +14,16 @@ The original code has been trimmed to the core classes in use in *amsa-code* and
 * Enforced 100% unit test coverage
 * Enforced Spotbugs and PMD checks
 
+## How to use
+Add this to your poml.xml:
+```xml
+<dependency>
+    <groupId>au.gov.amsa.er</groupId>
+    <artifactId>configuration-properties</artifactId>
+    <version>VERSION_HERE</version>
+</dependency>
+```
+
 ## How to build
 ```bash
 mvn clean install
