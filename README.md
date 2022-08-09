@@ -9,7 +9,7 @@ The original code has been trimmed to the core classes in use in *amsa-code* and
 * supports encrypted fields
 * supports resolving configuration (resolves nested references to other fields)
 * loads configuration from file system, classpath, system properties, java.util.Map
-* compatible with Java 8, 11, 17
+* compatible with Java 8, 11, 17 (see [ci.yml](.github/workflows/ci.yml))
 * dependabot enabled with automerge for passing dependabot PRs (see [ci.yml](.github/workflows/ci.yml))
 * Enforced 100% unit test coverage
 * Enforced Spotbugs and PMD checks
